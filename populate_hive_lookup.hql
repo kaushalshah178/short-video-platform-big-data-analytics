@@ -11,7 +11,7 @@ ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 COLLECTION ITEMS TERMINATED BY '&';
 
-LOAD DATA LOCAL INPATH '/root/project/code/etl/Lookup data/user-creator.txt' OVERWRITE INTO TABLE users_creator;
+LOAD DATA LOCAL INPATH '/root/project_kaushal/code/etl/Lookup data/user-creator.txt' OVERWRITE INTO TABLE users_creator;
 
 create external table if not exists channel_geo_map
 (
