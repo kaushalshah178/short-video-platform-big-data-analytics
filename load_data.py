@@ -12,3 +12,4 @@ dftoWrite.write.insertInto("video_analytics.Merged_data_all")
 xmlData = spark.read.format("com.databricks.spark.xml").option("rowTag", "record").load("/tmp/data_gen.xml")
 xmlDataWrite = xmlData .withColumn("batchid",lit("2020013115"))
 xmlDataWrite.write.insertInto("video_analytics.Merged_data_all")
+
