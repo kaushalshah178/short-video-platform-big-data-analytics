@@ -1,7 +1,7 @@
 #!/bin/bash
 
 batchid=$(date '+%Y%m%d%H')
-LOGFILE=/mnt/bigdatapgp/saurav_510636/project_$batchid
+LOGFILE=/root/project_kaushal/code/etl/code/project_$batchid
 
 echo "Creating LookUp Tables" >> $LOGFILE
 
@@ -12,7 +12,7 @@ echo "create 'video-creator-map', 'creator'" | hbase shell
 
 echo "Populating LookUp Tables" >> $LOGFILE
 
-file="/mnt/bigdatapgp/saurav_510636/project/Lookup data/channel-geocd.txt"
+file="/root/project_kaushal/code/etl/code/Lookup data/channel-geocd.txt"
 while IFS= read -r line
 do
  channelid=`echo $line | cut -d',' -f1`
@@ -21,7 +21,7 @@ do
 done <"$file"
 
 
-file="/mnt/bigdatapgp/saurav_510636/project/Lookup data/video-creator.txt"
+file="/root/project_kaushal/code/etl/code/Lookup data/video-creator.txt"
 while IFS= read -r line
 do
  videoid=`echo $line | cut -d',' -f1`
@@ -30,7 +30,7 @@ do
 done <"$file"
 
 
-file="/mnt/bigdatapgp/saurav_510636/project/Lookup data/user-subscn.txt"
+file="/root/project_kaushal/code/etl/code/Lookup data/user-subscn.txt"
 while IFS= read -r line
 do
  userid=`echo $line | cut -d',' -f1`
