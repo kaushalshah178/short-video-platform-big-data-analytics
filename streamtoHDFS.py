@@ -5,6 +5,7 @@ import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.types.DataTypes
 import spark.implicits._
 
+
 df = spark.readStream.format("kafka").option("kafka.bootstrap.servers", "20.0.31.221:9092").option("subscribe", "jsonvideoanalytics").load()
 
 newdf = df.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)").as[(String, String)]
