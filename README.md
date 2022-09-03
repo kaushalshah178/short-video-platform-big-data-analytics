@@ -4,4 +4,4 @@
 # Project Pipeline
 
 
-<img src="images/pipeline.png" alt="Project Pipeline" width="1500" height="600">
+<img src="short_video_kaushal_pipeline.png" alt="Project Pipeline" width="1500" height="600">
