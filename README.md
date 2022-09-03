@@ -28,7 +28,7 @@ Data files contain below fields.
 
 ## Column Name/Field Name Column Description/Field Description
 
-●	User_id Unique identifier of every user\\
+●	User_id Unique identifier of every user \
 ●	Video_id Unique identifier of every video
 ●	Creator_id Unique identifier of the lead creator of the video
 ●	Timestamp Timestamp when the video was generated
