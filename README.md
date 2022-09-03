@@ -60,4 +60,68 @@ There are some existing look up tables present in NoSQL databases. They play an 
 ●	users_creator(user-creator.txt) Contains an array of creator_id(s) followed by a user_id
 
 
+# Steps
+1.	Create and Populate Lookup tables in Hive and Hbase 
+Creating and populating hive tables on top of hbase tables for data enrichment and filtering.
+-	Run the below scripts to create and load hbase tables-
+sh /root/project_kaushal/code/etl/code/populate-hbase-lookup-tables.sh
+Check if the data is populated correctly or nor
+Start hbase-shell
+
+>scan 'channel-geo-map'
+>scan 'subscribed-users'
+>scan 'video-creator-map'
+
+-	Run the below script to create and load hive-hbase tables 
+hive -f /root/project_kaushal/code/etl/code/populate_hive_lookup.hql
+
+Check if all the tables are populated correctly-
+
+select * from channel_geo_map;
+select * from subscribed_users;
+select * from video_creator_map;
+
+2.	Create data tables in Hive 
+There are three kinds of tables loaded using this approach created by below script-
+
+-	Initial landing table - Merged_data_all
+-	Intermediate enriched table - enriched_data
+-	Final analysis tables- top_channels,users_behaviour,connected_creators,top_royalty_videos,top_unsubscribed_users
+
+hive -f /root/project_kaushal/code/etl/code/create_data_tables.hql
+
+hive -f /root/project_kaushal/code/etl/code/create_final_results.hql
+
+3.	Populate data tables (Batch process)- Spark
+
+-	Load data to HDFS
+
+hdfs dfs -put /root/project_kaushal/code/etl/code/data.csv /tmp/
+
+
+hdfs dfs -put /root/project_kaushal/code/etl/code/data.xml /tmp/
+
+-	Parse,load and merge data to Hive landing table
+
+cat '/root/project_kaushal/code/etl/code/load_data.scala’ | spark2-shell --num-executors 18 --executor-cores 3 --executor-memory 3g --jars /root/project_kaushal/code/etl/code/spark-xml_2.11-0.4.1.jar 
+
+-	Load data to Enriched table
+
+hive -f /root/project_kaushal/code/etl/code/enrich_data.hql
+
+-	Load data to Final analysis tables
+
+hive -f /root/project_kaushal/code/etl/code/load_final_results.hql
+	
+
+4.	Populate data tables (Stream process)- Spark
+Below Spark-submit command can stream data into HDFS after getting it from kafka , exploding the json by parsing it and then writing the data in HDFS after enriching it
+
+spark-structured streaming code which will get data from a kafka topic and write it to a HDFS path after doing a lookup on data stored in HDFS path.
+
+Code Source: 
+
+export SPARK_KAFKA_VERSION=0.10
+pyspark --packages org.apache.spark:spark-sql-kafka-0-10_2.11:2.1.0,org.apache.kafka:kafka-clients:0.10.2.1 --master yarn
+
 
