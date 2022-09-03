@@ -20,9 +20,9 @@ The goal the project is to create data pipelines for the short video company whi
 4.	Finally data landed to HDFS needs to be analyzed by some analytical queries.-SPARK- Analytical queries can be done on Spark due to better performance and ability to control the jobs.
 
 # Dataset Explanation & Schema
-1. Data coming from web applications reside in local directory and has csv and  xml format.\
-2. Data coming from mobile applications stream has Json.\
-3. Data present in lookup directory should be used in HBase.\
+1. Data coming from web applications reside in local directory and has csv and  xml format.
+2. Data coming from mobile applications stream has Json.
+3. Data present in lookup directory should be used in HBase.
 
 Data files contain below fields.
 
@@ -35,7 +35,7 @@ Data files contain below fields.
 ●	minutes_played minutes between video started to play video was stopped\
 ●	Geo_cd Can be 'A' for America region, 'AP' for Asia Pacific region, 'J' for Japan region, 'E' for europe and 'AU' for australia region\
 ●	Creator_id Unique identifier of the Creator from where the video was played\
-●	Video_end_type How the video was terminated.\
+●	Video_end_type How the video was terminated.
 
 0 means completed successfully\
 1 means video was skipped\
@@ -57,7 +57,7 @@ There are some existing look up tables present in NoSQL databases. They play an 
 ●	Creator_geo_map (Creator-geocd.txt) Contains mapping of a geo_cd with Creator_id\
 ●	subscribed_users(user-subscn.txt) Contains user_id, subscription_start_date andsubscription_end_date. Contains details only for subscribed users\
 ●	video_creator_map (video-creator.txt) Contains mapping of video_id with creator_id\
-●	users_creator(user-creator.txt) Contains an array of creator_id(s) followed by a user_id\
+●	users_creator(user-creator.txt) Contains an array of creator_id(s) followed by a user_id
 
 
 
